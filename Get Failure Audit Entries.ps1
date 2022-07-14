@@ -1,5 +1,7 @@
 ## Get all Failure Audit Entries
-$appEntries = Get-EventLog -LogName Application -Source 'MSSQL$INSTANCE' -EntryType FailureAudit | Select Message 
+$appEntries = Get-EventLog -LogName Application -Source *MSSQL* -EntryType FailureAudit | Select Message 
+$appEntries | Group-Object -Property Message -NoElement | Sort-Object -Property Count -Descending
+
 
 $List = New-Object System.Collections.Generic.List[System.Object]
 foreach ($appEntry in $appEntries){
